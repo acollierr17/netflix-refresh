@@ -1,4 +1,6 @@
 import { type NextApiRequest, type NextApiResponse } from "next";
+import { Redis } from "@upstash/redis";
+import { verifySignature } from "@upstash/qstash/nextjs";
 
 import { env } from "../../../env/server.mjs";
 
@@ -6,7 +8,7 @@ import { prisma } from "../../../server/db/client";
 import { fetchNewTitles } from "../../../utils/unogs";
 import { parseTitleInputData } from "../../../utils/db";
 
-export default async function handler(
+async function handler(
   req: NextApiRequest,
   res: NextApiResponse
 ) {
@@ -14,8 +16,8 @@ export default async function handler(
 
   try {
     if (
-      !req.headers.authorization ||
-      req.headers.authorization !== env.API_TOKEN
+      !req.query.apiKey ||
+      req.query.apiKey !== env.API_TOKEN
     ) {
       res.statusCode = 401;
       res.statusMessage = "The API key is invalid or not found!";
@@ -55,3 +57,11 @@ export default async function handler(
     });
   }
 }
+
+export default verifySignature(handler)
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
