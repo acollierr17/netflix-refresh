@@ -1,0 +1,35 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  previewFeatures = ["fullTextSearch"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Title {
+  id        String   @id @default(uuid()) @db.Uuid
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  imdbId    String   @map("imdb_id")
+  img       String
+  netflixId Int      @map("netflix_id")
+  poster    String
+  rating    String
+  runtime   String
+  synopsis  String
+  title     String
+  titleDate String   @map("title_date")
+  titleType String   @map("title_type")
+  top250    Int
+  top250tv  Int
+  year      String
+
+  @@unique([netflixId])
+  @@index([netflixId, imdbId])
+  @@map("titles")
+}
