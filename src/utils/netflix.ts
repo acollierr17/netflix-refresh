@@ -53,7 +53,9 @@ type RequestOptions = {
 
 const BASE_URL = `https://${RAPIDAPI_HOST}`;
 
-const makeNetflixRequest = async <T>(options: RequestOptions): Promise<T> => {
+const makeNetflixRequest = async <T>(
+  options: RequestOptions
+): Promise<BaseNetflixData<T>> => {
   const url = new URL(`${BASE_URL + options.route}`);
   if (options.queries) {
     options.queries.set("country_list", "78");
@@ -67,7 +69,7 @@ const makeNetflixRequest = async <T>(options: RequestOptions): Promise<T> => {
       "X-RapidAPI-Host": RAPIDAPI_HOST,
     },
     body: options.body,
-  }).then((res: Response) => res.json() as T);
+  }).then((res: Response) => res.json());
 };
 
 export const fetchDailyTitles = async (date: Date) => {
@@ -106,46 +108,46 @@ export const fetchDailyTitles = async (date: Date) => {
 
 export const fetchDeletedTitles = async (date: Date) => {
   const queryDate = formatDateQueryString(date);
-  const queries = new URLSearchParams();
-  queries.set("delete_date", queryDate);
+  const queries = new URLSearchParams({
+    delete_date: queryDate,
+  });
 
   const cached = await redis.hget<NetflixDeleteJSONData[]>(
     "deleted-titles",
     queryDate
   );
-  if (!cached)
-    return makeNetflixRequest<BaseNetflixData<NetflixDeleteJSONData>>({
-      route: "/search/deleted",
-      queries,
-    }).then(async (data) => {
-      await redis.hset<NetflixDeleteJSONData[]>("deleted-titles", {
-        [queryDate]: data.results,
-      });
+  if (cached) return cached;
 
-      return data.results;
-    });
+  const { results } = await makeNetflixRequest<NetflixDeleteJSONData>({
+    route: "/search/deleted",
+    queries,
+  });
 
-  return cached;
+  await redis.hset<NetflixDeleteJSONData[]>("deleted-titles", {
+    [queryDate]: results,
+  });
+
+  return results;
 };
 
 export const fetchNewTitles = async (date: Date) => {
   const queryDate = formatDateQueryString(date);
-  const queries = new URLSearchParams();
-  queries.set("order_by", "date");
-  queries.set("new_date", queryDate);
+  const queries = new URLSearchParams({
+    order_by: "date",
+    new_date: queryDate,
+  });
 
   const cached = await redis.hget<NetflixJSONData[]>("added-titles", queryDate);
-  if (!cached)
-    return makeNetflixRequest<BaseNetflixData<NetflixJSONData>>({
-      route: "/search/titles",
-      queries,
-    }).then(async (data) => {
-      await redis.hset<NetflixJSONData[]>("added-titles", {
-        [queryDate]: data.results,
-      });
+  if (cached) return cached;
 
-      return data.results;
-    });
+  const { results } = await makeNetflixRequest<NetflixJSONData>({
+    route: "/search/titles",
+    queries,
+  });
 
-  return cached;
+  await redis.hset<NetflixJSONData[]>("added-titles", {
+    [queryDate]: results,
+  });
+
+  return results;
 };
