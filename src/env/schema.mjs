@@ -19,7 +19,9 @@ export const serverSchema = z.object({
   QSTASH_TOKEN: z.string().min(1),
   QSTASH_CURRENT_SIGNING_KEY: z.string().min(1),
   QSTASH_NEXT_SIGNING_KEY: z.string().min(1),
-  API_TOKEN: z.string().min(1)
+  API_TOKEN: z.string().min(1),
+  UPSTASH_REDIS_REST_URL: z.string().min(1),
+  UPSTASH_REDIS_REST_TOKEN: z.string().min(1)
 });
 
 /**
