@@ -1,7 +1,5 @@
 import { type NextApiRequest, type NextApiResponse } from "next";
 import { verifySignature } from "@upstash/qstash/nextjs";
-import { stripIndents } from "common-tags";
-import he from "he";
 
 import authenticateRequest from "../../server/authenticateRequest";
 import { fetchDailyTitles } from "../../utils/netflix";
