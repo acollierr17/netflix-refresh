@@ -4,9 +4,7 @@ import { stripIndents } from "common-tags";
 import he from "he";
 
 import authenticateRequest from "../../server/authenticateRequest";
-import type { NetflixJSONData, NetflixDeleteJSONData } from "../../utils/unogs";
-import { fetchDailyTitles } from "../../utils/unogs";
-import { getFriendlyFormattedDate } from "../../utils/date";
+import { fetchDailyTitles } from "../../utils/netflix";
 import { buildThread, createTweetThread } from "../../server/twitter";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {

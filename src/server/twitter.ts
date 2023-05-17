@@ -4,7 +4,7 @@ import type {
   DailyNetflixJSON,
   NetflixDeleteJSONData,
   NetflixJSONData,
-} from "../utils/unogs";
+} from "../utils/netflix";
 import he from "he";
 import { stripIndents } from "common-tags";
 import { getFriendlyFormattedDate } from "../utils/date";
