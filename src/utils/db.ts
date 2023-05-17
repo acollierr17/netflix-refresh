@@ -1,22 +1,7 @@
 import { z } from "zod";
+import type { NetflixJSONData } from "./netflix";
 
-export type NetflixJSONData = {
-  imdb_id: string;
-  img: string;
-  netflix_id: number;
-  poster: string;
-  rating: string;
-  runtime: string;
-  synopsis: string;
-  title: string;
-  title_date: string;
-  title_type: string;
-  top250: number;
-  top250tv: number;
-  year: string;
-};
-
-const TitleSchema = z.object({
+export const TitleSchema = z.object({
   imdbId: z.string(),
   img: z.string(),
   netflixId: z.number(),
@@ -32,10 +17,11 @@ const TitleSchema = z.object({
   year: z.string(),
 });
 
-type Title = z.infer<typeof TitleSchema>;
+export const TitlesSchema = z.array(TitleSchema);
 
-export const parseTitleInputData = (data: Title) => {
-  return TitleSchema.parse(data);
+export const parseTitles = (data: NetflixJSONData[]) => {
+  const formatted = data.map(formatJSONData);
+  return TitlesSchema.parse(formatted);
 };
 
 export const formatJSONData = (data: NetflixJSONData) => ({
