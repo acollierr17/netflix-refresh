@@ -1,6 +1,6 @@
 import { env } from "../env/server.mjs";
 import redis from "../server/redis";
-import { formatDateQueryString } from "./date";
+import { formatDateQueryString, getFormattedDate } from "./date";
 
 const { RAPIDAPI_KEY, RAPIDAPI_HOST } = env;
 
@@ -71,6 +71,7 @@ const makeNetflixRequest = async <T>(options: RequestOptions): Promise<T> => {
 };
 
 export const fetchDailyTitles = async (date: Date) => {
+  const queryDate = formatDateQueryString(date);
   const data: DailyNetflixJSON = {
     size: 0,
     added: [],
@@ -96,6 +97,9 @@ export const fetchDailyTitles = async (date: Date) => {
     ] as NetflixDeleteJSONData[];
     data.size += data.deleted.length;
   }
+
+  const cachedDateExists = await redis.sismember("dates", queryDate);
+  if (!cachedDateExists) await redis.sadd("dates", queryDate);
 
   return data;
 };
