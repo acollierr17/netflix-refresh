@@ -43,6 +43,6 @@ export default verifySignature(authenticateRequest(handler));
 
 export const config = {
   api: {
-    bodyParse: false,
+    bodyParser: false,
   },
 };
