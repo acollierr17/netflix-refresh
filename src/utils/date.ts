@@ -45,12 +45,21 @@ export const getFriendlyFormattedDate = (date: Date): string => {
   }).format(date);
 };
 
-export const getFormattedDate = (date: Date, split = true): string => {
+export const getFormattedDate = (date: Date): string => {
   const year = date.getFullYear().toString();
   const month = (date.getMonth() + 1).toString().padStart(2, "0");
   const day = date.getDate().toString().padStart(2, "0");
 
-  const vals: string[] = [year, month, day];
+  return [year, month, day].join("-");
+};
 
-  return vals.join(split ? "-" : "");
+export const convertDateQueryParam = (
+  param: string | string[] | undefined,
+  date: Date
+): Date => {
+  return param
+    ? convertUTCStringToDate(
+        Array.isArray(param) ? (param[0] as string) : (param as string)
+      )
+    : date;
 };

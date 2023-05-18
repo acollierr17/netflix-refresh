@@ -1,15 +1,13 @@
 import { type NextApiRequest, type NextApiResponse } from "next";
 
 import { fetchDeletedTitles } from "../../../utils/netflix";
-import { convertUTCStringToDate, getFormattedDate } from "../../../utils/date";
+import { convertDateQueryParam, getFormattedDate } from "../../../utils/date";
 import authenticateRequest from "../../../server/authenticateRequest";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const date = new Date();
-    const queryDate = req.query.date
-      ? convertUTCStringToDate(req.query.date as string)
-      : new Date();
+    const queryDate = convertDateQueryParam(req.query.date, date);
     if (!queryDate)
       return res.status(400).json({
         metadata: {
