@@ -6,7 +6,10 @@ export default function authenticateRequest(
 ): NextApiHandler {
   const date = new Date();
   return async (req: NextApiRequest, res: NextApiResponse) => {
-    if (!req.query.apiKey || req.query.apiKey !== env.API_TOKEN) {
+    if (
+      !req.headers["x-api-key"] ||
+      req.headers["x-api-key"] !== env.API_TOKEN
+    ) {
       return res.status(401).json({
         metadata: { nonce: date.getTime() },
         error: "The API key is invalid or not found.",
