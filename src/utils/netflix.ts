@@ -64,10 +64,15 @@ const makeNetflixRequest = async <T>(
   options: RequestOptions
 ): Promise<BaseNetflixData<T>> => {
   const url = new URL(`${BASE_URL + options.route}`);
-  if (options.queries) {
-    if (!options.fetchAllCountries) options.queries.set("country_list", "78");
-    url.search = options.queries.toString();
+  if (!options.queries) {
+    const params = new URLSearchParams();
+    if (!options.fetchAllCountries) params.set("country_list", "78");
+    options.queries = params;
   }
+
+  if (!options.fetchAllCountries) options.queries.set("country_list", "78");
+
+  url.search = options.queries.toString();
 
   return fetch(url, {
     headers: {
