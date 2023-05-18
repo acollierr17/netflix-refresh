@@ -1,28 +1,43 @@
-# Create T3 App
+# Netflix Refresh
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+Welcome to the Netflix Refresh repository. This application checks the Netflix API every 24 hours for newly added and deleted content in the United States. Once it has that content, it posts to the Twitter account [@NetflixRefresh](https://twitter.com/NetflixRefresh), where people can get Netflix content news in their Twitter feed.
 
-## What's next? How do I make an app with this?
+## Tech Stack
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+Netflix Refresh is built with the [T3 stack](https://create.t3.gg/):
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+- [Next.js](https://nextjs.org/)
+- [tRPC](https://trpc.io/)
+- [Prisma](https://www.prisma.io/)
+- [Tailwind CSS](https://tailwindcss.com/)
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+In addition to the T3 Stack, Netflix Refresh uses the [Twitter API](https://developer.twitter.com/en/docs/twitter-api) to post updates to Twitter and the [uNoGS API](https://rapidapi.com/unogs/api/unogs) to fetch content information from its database. We also make use of [Upstash](https://upstash.com) to handle cron jobs and caching with Redis.
 
-## Learn More
+## Current Features
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+- **Regular Updates:** The application regularly checks for newly added and deleted content on Netflix.
+- **Twitter Updates:** All updates are posted to our Twitter account, [@NetflixRefresh](https://twitter.com/NetflixRefresh).
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+## Planned Features
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+- **Watchlists:** The ability to create, share, and manage watchlists. You can add shows you want to watch or build lists with friends with the ability to share lists.
+- **Content History:** The ability to view a page with the current day and previous days' information on titles that were added and deleted.
+- **Title Search:** The ability to search titles and open them in Netflix when you find something you want to watch.
 
-## How do I deploy this?
+## Contributing
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+We welcome contributions of all kinds from anyone. Being an open-source project, they are greatly appreciated. Please read the [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Acknowledgments
+
+This application wouldn't be possible without the uNoGS API, the Twitter API, and the T3 Stack. Thank you to all the developers and contributors who maintain these resources.
+
+## Contact
+
+For any questions, feel free to reach out to us or raise an issue. We'll do our best to address your concerns promptly.
+
+Enjoy your time with Netflix Refresh!
