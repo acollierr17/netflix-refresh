@@ -19,7 +19,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       });
 
     const formattedQueryDate = getFormattedDate(queryDate);
-    const titles = await fetchDailyTitles(queryDate);
+    const titles = await fetchDailyTitles({ date: queryDate });
     if (!titles.size) {
       res.statusCode = 204;
       res.statusMessage = "No newly added or deleted content.";

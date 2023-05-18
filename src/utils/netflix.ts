@@ -79,7 +79,7 @@ const makeNetflixRequest = async <T>(
   }).then((res: Response) => res.json());
 };
 
-export const fetchDailyTitles = async (date: Date) => {
+export const fetchDailyTitles = async ({ date }: FetchTitleOptions) => {
   const queryDate = formatDateQueryString(date);
   const data: DailyNetflixJSON = {
     size: 0,
