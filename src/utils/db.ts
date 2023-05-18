@@ -2,19 +2,19 @@ import { z } from "zod";
 import type { NetflixJSONData } from "./netflix";
 
 export const TitleSchema = z.object({
-  imdbId: z.string(),
-  img: z.string(),
+  imdbId: z.string().max(16),
+  img: z.string().max(1024),
   netflixId: z.number(),
-  poster: z.string(),
-  rating: z.string(),
-  runtime: z.string(),
-  synopsis: z.string(),
-  title: z.string(),
-  titleDate: z.string(),
-  titleType: z.string(),
+  poster: z.string().max(1024),
+  rating: z.string().max(255),
+  runtime: z.string().max(255),
+  synopsis: z.string().max(1024),
+  title: z.string().max(255),
+  titleDate: z.string().max(255),
+  titleType: z.string().max(6),
   top250: z.number(),
   top250tv: z.number(),
-  year: z.string(),
+  year: z.string().max(4),
 });
 
 export const TitlesSchema = z.array(TitleSchema);

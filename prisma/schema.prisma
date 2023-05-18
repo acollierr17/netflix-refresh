@@ -3,7 +3,6 @@
 
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["fullTextSearch"]
 }
 
 datasource db {
@@ -12,24 +11,25 @@ datasource db {
 }
 
 model Title {
-  id        String   @id @default(uuid()) @db.Uuid
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  imdbId    String   @map("imdb_id")
-  img       String
+  id        String   @id @db.Char(26)
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+  imdbId    String   @map("imdb_id") @db.VarChar(16)
+  img       String   @db.VarChar(1024)
   netflixId Int      @map("netflix_id")
-  poster    String
-  rating    String
-  runtime   String
-  synopsis  String
-  title     String
+  poster    String   @db.VarChar(1024)
+  rating    String   @db.VarChar(255)
+  runtime   String   @db.VarChar(255)
+  synopsis  String   @db.VarChar(1024)
+  title     String   @db.VarChar(255)
   titleDate String   @map("title_date")
-  titleType String   @map("title_type")
-  top250    Int
-  top250tv  Int
-  year      String
+  titleType String   @map("title_type") @db.VarChar(6)
+  top250    Int      @map("top_250")
+  top250tv  Int      @map("top_250_tv")
+  year      String   @db.VarChar(4)
 
   @@unique([netflixId])
-  @@index([netflixId, imdbId])
+  @@index([netflixId])
+  @@index([imdbId])
   @@map("titles")
 }
