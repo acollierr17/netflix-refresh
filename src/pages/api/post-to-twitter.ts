@@ -9,7 +9,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const date = new Date();
 
-    const titles = await fetchDailyTitles(date);
+    const titles = await fetchDailyTitles({ date, force: true });
     if (!titles.size) {
       res.statusCode = 204;
       res.statusMessage = "No newly added or deleted content.";

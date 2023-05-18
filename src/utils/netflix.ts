@@ -107,11 +107,12 @@ export const fetchDailyTitles = async ({ date }: FetchTitleOptions) => {
     data.size += data.deleted.length;
   }
 
+  const dateFormatted = getFormattedDate(date);
   const cachedDateExists = await redis.sismember("dates", queryDate);
   if (!cachedDateExists) {
-    await redis.sadd("dates", queryDate);
+    await redis.sadd("dates", dateFormatted);
     await redis.hset<DailyNetflixJSON>("daily-titles", {
-      [queryDate]: data,
+      [dateFormatted]: data,
     });
   }
 
@@ -141,9 +142,10 @@ export const fetchDeletedTitles = async ({
 
   if (!results) return [] as NetflixJSONData[];
 
-  await redis.hset<NetflixDeleteJSONData[]>("deleted-titles", {
-    [queryDate]: results,
-  });
+  if (!force)
+    await redis.hset<NetflixDeleteJSONData[]>("deleted-titles", {
+      [getFormattedDate(date)]: results,
+    });
 
   return results;
 };
@@ -172,9 +174,10 @@ export const fetchNewTitles = async ({
 
   if (!results) return [] as NetflixJSONData[];
 
-  await redis.hset<NetflixJSONData[]>("added-titles", {
-    [queryDate]: results,
-  });
+  if (!force)
+    await redis.hset<NetflixJSONData[]>("added-titles", {
+      [getFormattedDate(date)]: results,
+    });
 
   return results;
 };
