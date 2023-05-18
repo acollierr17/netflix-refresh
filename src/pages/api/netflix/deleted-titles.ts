@@ -21,7 +21,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
       });
 
     const formattedQueryDate = getFormattedDate(queryDate);
-    const titles = await fetchDeletedTitles(queryDate);
+    const titles = await fetchDeletedTitles({ date: queryDate });
     if (titles.length < 1) {
       res.statusCode = 204;
       res.statusMessage =

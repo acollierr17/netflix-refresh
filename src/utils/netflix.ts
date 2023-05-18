@@ -49,6 +49,13 @@ type RequestOptions = {
   body?: BodyInit | null;
   headers?: HeadersInit | null;
   queries?: URLSearchParams | null;
+  fetchAllCountries?: boolean | null;
+};
+
+type FetchTitleOptions = {
+  date: Date;
+  force?: boolean;
+  fetchAllCountries?: boolean;
 };
 
 const BASE_URL = `https://${RAPIDAPI_HOST}`;
@@ -58,7 +65,7 @@ const makeNetflixRequest = async <T>(
 ): Promise<BaseNetflixData<T>> => {
   const url = new URL(`${BASE_URL + options.route}`);
   if (options.queries) {
-    options.queries.set("country_list", "78");
+    if (!options.fetchAllCountries) options.queries.set("country_list", "78");
     url.search = options.queries.toString();
   }
 
@@ -80,7 +87,7 @@ export const fetchDailyTitles = async (date: Date) => {
     deleted: [],
   };
 
-  const promises = [fetchNewTitles(date), fetchDeletedTitles(date)];
+  const promises = [fetchNewTitles({ date }), fetchDeletedTitles({ date })];
   const results = await Promise.allSettled(promises);
 
   const addedContent =
@@ -106,21 +113,25 @@ export const fetchDailyTitles = async (date: Date) => {
   return data;
 };
 
-export const fetchDeletedTitles = async (date: Date) => {
+export const fetchDeletedTitles = async ({
+  date,
+  force,
+  fetchAllCountries,
+}: FetchTitleOptions) => {
   const queryDate = formatDateQueryString(date);
   const queries = new URLSearchParams({
     delete_date: queryDate,
   });
 
-  const cached = await redis.hget<NetflixDeleteJSONData[]>(
-    "deleted-titles",
-    queryDate
-  );
+  const cached = force
+    ? null
+    : await redis.hget<NetflixDeleteJSONData[]>("deleted-titles", queryDate);
   if (cached) return cached;
 
   const { results } = await makeNetflixRequest<NetflixDeleteJSONData>({
     route: "/search/deleted",
     queries,
+    fetchAllCountries,
   });
 
   await redis.hset<NetflixDeleteJSONData[]>("deleted-titles", {
@@ -130,19 +141,26 @@ export const fetchDeletedTitles = async (date: Date) => {
   return results;
 };
 
-export const fetchNewTitles = async (date: Date) => {
+export const fetchNewTitles = async ({
+  date,
+  force,
+  fetchAllCountries,
+}: FetchTitleOptions) => {
   const queryDate = formatDateQueryString(date);
   const queries = new URLSearchParams({
     order_by: "date",
     new_date: queryDate,
   });
 
-  const cached = await redis.hget<NetflixJSONData[]>("added-titles", queryDate);
+  const cached = force
+    ? null
+    : await redis.hget<NetflixJSONData[]>("added-titles", queryDate);
   if (cached) return cached;
 
   const { results } = await makeNetflixRequest<NetflixJSONData>({
     route: "/search/titles",
     queries,
+    fetchAllCountries,
   });
 
   await redis.hset<NetflixJSONData[]>("added-titles", {

@@ -1,5 +1,6 @@
 import { type NextApiRequest, type NextApiResponse } from "next";
 import { verifySignature } from "@upstash/qstash/nextjs";
+import { ulid } from "ulid";
 
 import authenticateRequest from "../../server/authenticateRequest";
 import { fetchNewTitles } from "../../utils/netflix";
@@ -10,15 +11,20 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
     const date = new Date();
 
-    const titles = await fetchNewTitles(date);
+    const titles = await fetchNewTitles({
+      date,
+      force: true,
+      fetchAllCountries: true,
+    });
     if (titles.length < 1) {
       res.statusCode = 204;
       res.statusMessage = "No newly added content.";
       return res.end();
     }
 
+    const data = parseTitles(titles).map((title) => ({ ...title, id: ulid() }));
     const created = await prisma.title.createMany({
-      data: parseTitles(titles),
+      data: data,
       skipDuplicates: true,
     });
 
