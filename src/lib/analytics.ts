@@ -11,7 +11,7 @@ export function useAnalytics() {
   useEffect(() => {
     if (serverEnv.NODE_ENV === "production") {
       Fathom.load(clientEnv.NEXT_PUBLIC_FATHOM_SITE_ID, {
-        includedDomains: ["netfix-refresh.acollier.dev"],
+        includedDomains: ["netflix-refresh.acollier.dev"],
       });
     }
 
