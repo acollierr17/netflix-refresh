@@ -1,5 +1,5 @@
 import { Redis } from "@upstash/redis";
-import { env } from "../env/server.mjs";
+import { env } from "@/env.mjs";
 
 const redis = new Redis({
   url: env.UPSTASH_REDIS_REST_URL,

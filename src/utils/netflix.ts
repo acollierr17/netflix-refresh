@@ -1,4 +1,4 @@
-import { env } from "../env/server.mjs";
+import { env } from "@/env.mjs";
 import redis from "../server/redis";
 import { formatDateQueryString, getFormattedDate } from "./date";
 

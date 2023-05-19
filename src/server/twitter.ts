@@ -1,5 +1,5 @@
 import { TwitterApi } from "twitter-api-v2";
-import { env } from "../env/server.mjs";
+import { env } from "@/env.mjs";
 import type {
   DailyNetflixJSON,
   NetflixDeleteJSONData,
