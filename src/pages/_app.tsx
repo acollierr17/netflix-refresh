@@ -4,7 +4,11 @@ import { ThemeProvider } from "next-themes";
 import { trpc } from "../utils/trpc";
 import "../styles/globals.css";
 
+import { useAnalytics } from "@/lib/analytics";
+
 const MyApp: AppType = ({ Component, pageProps }) => {
+  useAnalytics();
+
   return (
     <>
       <ThemeProvider forcedTheme="dark" attribute="class">
