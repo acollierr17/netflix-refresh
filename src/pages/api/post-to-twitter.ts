@@ -1,9 +1,9 @@
 import { type NextApiRequest, type NextApiResponse } from "next";
 import { verifySignature } from "@upstash/qstash/nextjs";
 
-import authenticateRequest from "../../server/authenticateRequest";
-import { fetchDailyTitles } from "../../utils/netflix";
-import { buildThread, createTweetThread } from "../../server/twitter";
+import authenticateRequest from "@/server/authenticateRequest";
+import { fetchDailyTitles } from "@/utils/netflix";
+import { buildThread, createTweetThread } from "@/server/twitter";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {

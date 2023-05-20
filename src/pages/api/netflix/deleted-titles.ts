@@ -1,8 +1,8 @@
 import { type NextApiRequest, type NextApiResponse } from "next";
 
-import { fetchDeletedTitles } from "../../../utils/netflix";
-import { convertDateQueryParam, getFormattedDate } from "../../../utils/date";
-import authenticateRequest from "../../../server/authenticateRequest";
+import { fetchDeletedTitles } from "@/utils/netflix";
+import { convertDateQueryParam, getFormattedDate } from "@/utils/date";
+import authenticateRequest from "@/server/authenticateRequest";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {

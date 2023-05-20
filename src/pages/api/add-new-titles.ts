@@ -2,10 +2,10 @@ import { type NextApiRequest, type NextApiResponse } from "next";
 import { verifySignature } from "@upstash/qstash/nextjs";
 import { ulid } from "ulid";
 
-import authenticateRequest from "../../server/authenticateRequest";
-import { fetchNewTitles } from "../../utils/netflix";
-import { prisma } from "../../server/db/client";
-import { parseTitles } from "../../utils/db";
+import authenticateRequest from "@/server/authenticateRequest";
+import { fetchNewTitles } from "@/utils/netflix";
+import { prisma } from "@/server/db/client";
+import { parseTitles } from "@/utils/db";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {

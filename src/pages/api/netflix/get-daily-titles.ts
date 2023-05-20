@@ -1,8 +1,8 @@
 import { type NextApiRequest, type NextApiResponse } from "next";
 
-import { fetchDailyTitles } from "../../../utils/netflix";
-import { convertDateQueryParam, getFormattedDate } from "../../../utils/date";
-import authenticateRequest from "../../../server/authenticateRequest";
+import { fetchDailyTitles } from "@/utils/netflix";
+import { convertDateQueryParam, getFormattedDate } from "@/utils/date";
+import authenticateRequest from "@/server/authenticateRequest";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
@@ -37,7 +37,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         deleted: titles.deleted,
       },
     });
-  } catch (e: any) {
+  } catch (e: unknown) {
     return res.status(500).json({
       code: res.statusCode,
       name: e.name,

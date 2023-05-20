@@ -1,5 +1,5 @@
 import { env } from "@/env.mjs";
-import redis from "../server/redis";
+import redis from "@/server/redis";
 import { formatDateQueryString, getFormattedDate } from "./date";
 
 const { RAPIDAPI_KEY, RAPIDAPI_HOST } = env;

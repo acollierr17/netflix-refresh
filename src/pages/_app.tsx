@@ -1,8 +1,8 @@
 import type { AppType } from "next/app";
 import { ThemeProvider } from "next-themes";
 
-import { trpc } from "../utils/trpc";
-import "../styles/globals.css";
+import { api } from "@/utils/api";
+import "@/styles/globals.css";
 
 import { useAnalytics } from "@/lib/analytics";
 
@@ -18,4 +18,4 @@ const MyApp: AppType = ({ Component, pageProps }) => {
   );
 };
 
-export default trpc.withTRPC(MyApp);
+export default api.withTRPC(MyApp);
