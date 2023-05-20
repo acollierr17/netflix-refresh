@@ -1,13 +1,15 @@
 import { TwitterApi } from "twitter-api-v2";
+import he from "he";
+import { stripIndents } from "common-tags";
+
 import { env } from "@/env.mjs";
 import type {
   DailyNetflixJSON,
   NetflixDeleteJSONData,
   NetflixJSONData,
-} from "../utils/netflix";
-import he from "he";
-import { stripIndents } from "common-tags";
-import { getFriendlyFormattedDate } from "../utils/date";
+} from "@/utils/netflix";
+
+import { getFriendlyFormattedDate } from "@/utils/date";
 
 const client = new TwitterApi({
   appKey: env.TWITTER_CONSUMER_KEY,

@@ -4,7 +4,7 @@ import { ulid } from "ulid";
 
 import authenticateRequest from "@/server/authenticateRequest";
 import { fetchNewTitles } from "@/utils/netflix";
-import { prisma } from "@/server/db/client";
+import { prisma } from "@/server/db";
 import { parseTitles } from "@/utils/db";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {

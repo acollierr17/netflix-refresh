@@ -1,6 +1,6 @@
 import { type NextApiRequest, type NextApiResponse } from "next";
 
-import { fetchNewTitles } from "../../../utils/netflix";
+import { fetchNewTitles } from "@/utils/netflix";
 import { convertDateQueryParam, getFormattedDate } from "@/utils/date";
 import authenticateRequest from "@/server/authenticateRequest";
 
