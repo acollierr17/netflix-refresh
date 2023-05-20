@@ -81,7 +81,7 @@ const makeNetflixRequest = async <T>(
       "X-RapidAPI-Host": RAPIDAPI_HOST,
     },
     body: options.body,
-  }).then((res: Response) => res.json());
+  }).then((res: Response) => res.json() as Promise<BaseNetflixData<T>>);
 };
 
 export const fetchDailyTitles = async ({ date }: FetchTitleOptions) => {

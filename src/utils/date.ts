@@ -56,10 +56,10 @@ export const getFormattedDate = (date: Date): string => {
 export const convertDateQueryParam = (
   param: string | string[] | undefined,
   date: Date
-): Date => {
+) => {
   return param
     ? convertUTCStringToDate(
-        Array.isArray(param) ? (param[0] as string) : (param as string)
+        Array.isArray(param) ? (param[0] as string) : param
       )
     : date;
 };

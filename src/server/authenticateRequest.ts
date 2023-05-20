@@ -5,7 +5,7 @@ export default function authenticateRequest(
   handler: NextApiHandler
 ): NextApiHandler {
   const date = new Date();
-  return async (req: NextApiRequest, res: NextApiResponse) => {
+  return (req: NextApiRequest, res: NextApiResponse) => {
     if (
       !req.headers["x-api-key"] ||
       req.headers["x-api-key"] !== env.API_TOKEN
