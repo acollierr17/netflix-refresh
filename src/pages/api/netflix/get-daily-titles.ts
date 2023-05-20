@@ -37,7 +37,7 @@ async function handler(req: NextApiRequest, res: NextApiResponse) {
         deleted: titles.deleted,
       },
     });
-  } catch (e: unknown) {
+  } catch (e: any) {
     return res.status(500).json({
       code: res.statusCode,
       name: e.name,
