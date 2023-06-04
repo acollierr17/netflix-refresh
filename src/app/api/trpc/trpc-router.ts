@@ -1,27 +1,17 @@
-import { z } from "zod";
-import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
+import { initTRPC } from "@trpc/server";
+import superjson from "superjson";
 
-export const exampleRouter = createTRPCRouter({
-  hello: publicProcedure
-    .input(z.object({ text: z.string() }))
-    .query(({ input }) => {
-      return {
-        greeting: `Hello ${input.text}`,
-      };
-    }),
-  getUsers: publicProcedure.query(({ ctx }) => {
+const t = initTRPC.create({
+  transformer: superjson,
+});
+
+export const appRouter = t.router({
+  getUsers: t.procedure.query(({ ctx }) => {
     return userList;
   }),
-  getNetflixTitle: publicProcedure
-    .input(z.object({ id: z.number() }))
-    .query(async ({ input, ctx }) => {
-      return await ctx.prisma.title.findUnique({
-        where: {
-          netflixId: input.id,
-        },
-      });
-    }),
 });
+
+export type AppRouter = typeof appRouter;
 
 // The code below is kept here to keep things simple
 
