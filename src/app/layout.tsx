@@ -1,7 +1,7 @@
 import { type Metadata } from "next";
 
 import "../styles/globals.css";
-import { TrpcProvider } from "@/utils/trpc-provider";
+import { TrpcProvider } from "@/lib/trpc-provider";
 import { siteConfig } from "@/config/site";
 import { fontSans } from "@/lib/fonts";
 import { cn } from "@/lib/utils";
