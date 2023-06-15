@@ -7,9 +7,9 @@ import type {
   DailyNetflixJSON,
   NetflixDeleteJSONData,
   NetflixJSONData,
-} from "@/utils/netflix";
+} from "@/lib/netflix";
 
-import { getFriendlyFormattedDate } from "@/utils/date";
+import { getFriendlyFormattedDate } from "@/lib/date";
 
 const client = new TwitterApi({
   appKey: env.TWITTER_CONSUMER_KEY,

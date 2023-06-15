@@ -1,7 +1,7 @@
 import { type NextApiRequest, type NextApiResponse } from "next";
 
-import { fetchDailyTitles } from "@/utils/netflix";
-import { convertDateQueryParam, getFormattedDate } from "@/utils/date";
+import { fetchDailyTitles } from "@/lib/netflix";
+import { convertDateQueryParam, getFormattedDate } from "@/lib/date";
 import authenticateRequest from "@/server/authenticateRequest";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {

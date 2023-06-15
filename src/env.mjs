@@ -22,7 +22,7 @@ export const env = createEnv({
     },
     client: {
         NEXT_PUBLIC_FATHOM_SITE_ID: z.string().min(1),
-        NEXT_PUBLIC_ENABLE_ANALYTICS: z.enum(["true", "false"])
+        NEXT_PUBLIC_ENABLE_ANALYTICS: z.enum(["true", "false"]),
     },
     runtimeEnv: {
         DATABASE_URL: process.env.DATABASE_URL,
@@ -42,6 +42,6 @@ export const env = createEnv({
         UPSTASH_REDIS_REST_URL: process.env.UPSTASH_REDIS_REST_URL,
         UPSTASH_REDIS_REST_TOKEN: process.env.UPSTASH_REDIS_REST_TOKEN,
         NEXT_PUBLIC_FATHOM_SITE_ID: process.env.NEXT_PUBLIC_FATHOM_SITE_ID,
-        NEXT_PUBLIC_ENABLE_ANALYTICS: process.env.NEXT_PUBLIC_ENABLE_ANALYTICS
+        NEXT_PUBLIC_ENABLE_ANALYTICS: process.env.NEXT_PUBLIC_ENABLE_ANALYTICS,
     },
 });

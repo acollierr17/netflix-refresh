@@ -3,9 +3,9 @@ import { verifySignature } from "@upstash/qstash/nextjs";
 import { ulid } from "ulid";
 
 import authenticateRequest from "@/server/authenticateRequest";
-import { fetchNewTitles } from "@/utils/netflix";
+import { fetchNewTitles } from "@/lib/netflix";
 import { prisma } from "@/server/db";
-import { parseTitles } from "@/utils/parsers";
+import { parseTitles } from "@/lib/parsers";
 
 async function handler(req: NextApiRequest, res: NextApiResponse) {
   try {
