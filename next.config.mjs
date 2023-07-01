@@ -32,6 +32,14 @@ const config = {
       {
         protocol: 'https',
         hostname: '**.ssl-images-amazon.com'
+      },
+      {
+        protocol: 'http',
+        hostname: '**.nflximg.net',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.nflximg.net'
       }
     ]
   },
