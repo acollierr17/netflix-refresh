@@ -1,6 +1,10 @@
 import ListTitles from "@/app/titles/[date]/ListTitles";
 import { getDailyTitleDates } from "@/lib/netflix";
 import { getFriendlyFormattedDate, parseDateString } from "@/lib/date";
+import { buttonVariants } from "@/components/ui/button";
+import Link from "next/link";
+import { cn } from "@/lib/utils";
+import { ArrowLeft } from "lucide-react";
 
 type TitlePageParams = {
   params: {
@@ -28,6 +32,13 @@ export default async function TitlePage({ params }: TitlePageParams) {
 
   return (
     <div>
+      <Link
+        href="/titles"
+        className={cn(buttonVariants({ variant: "outline" }), "mb-2")}
+      >
+        <ArrowLeft className="mr-2 h-4 w-4" /> Go back
+      </Link>
+
       <div>
         <h1 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl">
           {getFriendlyFormattedDate(date)}
