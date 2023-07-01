@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 /**
  * For dates:
  * - CONTEXT: Date is 2023-05-16
@@ -42,6 +44,7 @@ export const getFriendlyFormattedDate = (date: Date): string => {
     year: "numeric",
     month: "long",
     day: "numeric",
+    timeZone: "UTC",
   }).format(date);
 };
 
@@ -62,4 +65,13 @@ export const convertDateQueryParam = (
         Array.isArray(param) ? (param[0] as string) : param
       )
     : date;
+};
+
+export const parseDateString = (date: string): string => {
+  const zodDateRegex = /^(\d{4})-(0?[1-9]|1[0-2])-(0?[1-9]|1\d|2[0-9]|3[01])$/;
+  const validate = z.string().regex(zodDateRegex, {
+    message: "The date format is incorrect! (ex. YYYY-MM-DD)",
+  });
+
+  return validate.parse(date);
 };
