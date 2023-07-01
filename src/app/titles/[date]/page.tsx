@@ -1,11 +1,18 @@
 import { z } from "zod";
 import ListTitles from "@/app/titles/[date]/ListTitles";
+import { getDailyTitleDates } from "@/lib/netflix";
 
 type TitlePageParams = {
   params: {
     date: string;
   };
 };
+
+export async function generateStaticParams() {
+  const dates: string[] = await getDailyTitleDates();
+
+  return dates.map((date: string) => date);
+}
 
 export default async function TitlePage({ params }: TitlePageParams) {
   if (!params.date) return <div>No date...</div>;

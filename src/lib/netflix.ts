@@ -186,3 +186,7 @@ export const fetchNewTitles = async ({
 
   return results;
 };
+
+export const getDailyTitleDates = (): Promise<string[]> => {
+  return redis.smembers("dates");
+};
