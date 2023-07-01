@@ -1,7 +1,9 @@
 "use client";
 
-import Image from "next/image";
+import Image, { type ImageProps } from "next/image";
 import he from "he";
+import { Play } from "lucide-react";
+import { useEffect, useState } from "react";
 
 import {
   Card,
@@ -12,11 +14,40 @@ import {
 } from "@/components/ui/card";
 import { api } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
-import { Play } from "lucide-react";
+import fallbackImage from "public/fallback-poster.png";
+
+interface ImageWithFallbackProps extends ImageProps {
+  fallback?: ImageProps["src"];
+}
 
 type TitleCardProps = {
   netflixId: number;
   type: "added" | "deleted";
+};
+
+const ImageWithFallback = ({
+  fallback,
+  alt,
+  src,
+  ...props
+}: ImageWithFallbackProps) => {
+  const [error, setError] = useState<React.SyntheticEvent<
+    HTMLImageElement,
+    Event
+  > | null>(null);
+
+  useEffect(() => {
+    setError(null);
+  }, [src]);
+
+  return (
+    <Image
+      alt={alt}
+      onError={setError}
+      src={error ? fallback ?? fallbackImage : src}
+      {...props}
+    />
+  );
 };
 
 export default function TitleCard({ netflixId, type }: TitleCardProps) {
@@ -30,12 +61,15 @@ export default function TitleCard({ netflixId, type }: TitleCardProps) {
   return (
     <Card>
       <CardHeader>
-        <Image
+        <ImageWithFallback
           src={data.img}
+          fallback={fallbackImage}
           alt={`${he.decode(data.title)}'s poster`}
           width={166}
           height={233}
           className="h-auto w-full"
+          placeholder="blur"
+          blurDataURL="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8yilSDwAEYAGDFRus/QAAAABJRU5ErkJggg=="
         />
         <CardTitle>{data.title}</CardTitle>
         <CardDescription>{he.decode(data.synopsis)}</CardDescription>

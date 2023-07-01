@@ -29,6 +29,10 @@ const config = {
         protocol: 'http',
         hostname: '**.nflxso.net',
       },
+      {
+        protocol: 'https',
+        hostname: '**.ssl-images-amazon.com'
+      }
     ]
   },
 };
