@@ -14,6 +14,7 @@ function TrackPageView() {
       load(env.NEXT_PUBLIC_FATHOM_SITE_ID, {
         includedDomains: [
           "netflix-refresh.acollier.dev",
+          "netflix-refresh.com",
           "netflix-refresh.ngrok.io",
         ],
         auto: false,
