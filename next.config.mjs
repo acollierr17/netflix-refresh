@@ -18,5 +18,18 @@ const config = {
     locales: ["en"],
     defaultLocale: "en",
   },
+  images: {
+    domains: ["via.placeholder.com", "m.media-amazon.com"],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**.nflxso.net',
+      },
+      {
+        protocol: 'http',
+        hostname: '**.nflxso.net',
+      },
+    ]
+  },
 };
 export default config;
