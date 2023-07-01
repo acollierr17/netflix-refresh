@@ -8,10 +8,16 @@ type TitlePageParams = {
   };
 };
 
+const dynamicParams = false;
+
+export { dynamicParams };
+
 export async function generateStaticParams() {
   const dates: string[] = await getDailyTitleDates();
 
-  return dates.map((date: string) => date);
+  return dates.map((date: string) => ({
+    date,
+  }));
 }
 
 export default async function TitlePage({ params }: TitlePageParams) {
