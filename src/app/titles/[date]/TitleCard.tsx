@@ -15,6 +15,7 @@ import {
 import { api } from "@/lib/trpc";
 import { Button } from "@/components/ui/button";
 import fallbackImage from "public/fallback-poster.png";
+import { MovieBadge, SeriesBadge } from "@/components/badges";
 
 interface ImageWithFallbackProps extends ImageProps {
   fallback?: ImageProps["src"];
@@ -71,7 +72,10 @@ export default function TitleCard({ netflixId, type }: TitleCardProps) {
           placeholder="blur"
           blurDataURL="iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN8yilSDwAEYAGDFRus/QAAAABJRU5ErkJggg=="
         />
-        <CardTitle>{data.title}</CardTitle>
+        <CardTitle>
+          {`${data.title} (${data.year})`}{" "}
+          {data.titleType === "movie" ? <MovieBadge /> : <SeriesBadge />}
+        </CardTitle>
         <CardDescription>{he.decode(data.synopsis)}</CardDescription>
       </CardHeader>
       {type === "added" && (
