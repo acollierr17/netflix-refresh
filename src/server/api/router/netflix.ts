@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { createTRPCRouter, publicProcedure } from "@/server/api/trpc";
-import { fetchDailyTitles } from "@/lib/netflix";
+import { fetchDailyTitles, getDailyTitleDates } from "@/lib/netflix";
 
 export const netflixRouter = createTRPCRouter({
   getTitle: publicProcedure
@@ -17,4 +17,7 @@ export const netflixRouter = createTRPCRouter({
     .query(({ input }) => {
       return fetchDailyTitles({ date: input.date });
     }),
+  getDates: publicProcedure.query(() => {
+    return getDailyTitleDates();
+  }),
 });

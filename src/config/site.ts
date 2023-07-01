@@ -9,6 +9,10 @@ export const siteConfig = {
       title: "Home",
       href: "/",
     },
+    {
+      title: "Titles",
+      href: "/titles",
+    },
   ],
   links: {
     twitter: "https://twitter.com/NetflixRefresh",
