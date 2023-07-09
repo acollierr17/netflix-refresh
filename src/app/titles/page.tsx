@@ -1,13 +1,4 @@
-import { getDailyTitleDates } from "@/lib/netflix";
 import ListDates from "@/app/titles/ListDates";
-
-export async function generateStaticParams() {
-  const dates: string[] = await getDailyTitleDates();
-
-  return dates.map((date: string) => ({
-    date,
-  }));
-}
 
 export default async function TitlesPage() {
   return (
