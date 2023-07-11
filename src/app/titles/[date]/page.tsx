@@ -12,10 +12,6 @@ type TitlePageParams = {
   };
 };
 
-// const dynamicParams = false;
-//
-// export { dynamicParams };
-
 export async function generateStaticParams() {
   const dates: string[] = await getDailyTitleDates();
 
