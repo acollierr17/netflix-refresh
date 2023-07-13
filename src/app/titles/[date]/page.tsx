@@ -13,8 +13,6 @@ type TitlePageParams = {
   };
 };
 
-export const dynamic = "error";
-
 function checkDailyTitle(date: string): Promise<boolean> {
   return isDailyTitle(date);
 }
