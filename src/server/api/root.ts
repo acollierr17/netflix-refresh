@@ -1,4 +1,5 @@
 import { exampleRouter } from "@/server/api/router/example";
+import { netflixRouter } from "@/server/api/router/netflix";
 import { createTRPCRouter } from "@/server/api/trpc";
 
 /**
@@ -8,6 +9,7 @@ import { createTRPCRouter } from "@/server/api/trpc";
  */
 export const appRouter = createTRPCRouter({
   example: exampleRouter,
+  netflix: netflixRouter,
 });
 
 // export type definition of API

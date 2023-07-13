@@ -114,7 +114,7 @@ export const fetchDailyTitles = async ({ date }: FetchTitleOptions) => {
 
   const dateFormatted = getFormattedDate(date);
   const cachedDateExists = await redis.sismember("dates", queryDate);
-  if (!cachedDateExists) {
+  if (!cachedDateExists && data.size > 0) {
     await redis.sadd("dates", dateFormatted);
     await redis.hset<DailyNetflixJSON>("daily-titles", {
       [dateFormatted]: data,
@@ -185,4 +185,12 @@ export const fetchNewTitles = async ({
     });
 
   return results;
+};
+
+export const getDailyTitleDates = (): Promise<string[]> => {
+  return redis.smembers("dates");
+};
+
+export const isDailyTitle = (date: string): Promise<boolean> => {
+  return redis.sismember("dates", date).then((isMember) => !!isMember);
 };

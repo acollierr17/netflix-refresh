@@ -14,9 +14,34 @@ const config = {
    *
    * @see https://github.com/vercel/next.js/issues/41980
    */
-  i18n: {
-    locales: ["en"],
-    defaultLocale: "en",
+  // i18n: {
+  //   locales: ["en"],
+  //   defaultLocale: "en",
+  // },
+  images: {
+    domains: ["via.placeholder.com", "m.media-amazon.com"],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: '**.nflxso.net',
+      },
+      {
+        protocol: 'http',
+        hostname: '**.nflxso.net',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.ssl-images-amazon.com'
+      },
+      {
+        protocol: 'http',
+        hostname: '**.nflximg.net',
+      },
+      {
+        protocol: 'https',
+        hostname: '**.nflximg.net'
+      }
+    ]
   },
 };
 export default config;
