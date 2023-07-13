@@ -12,6 +12,8 @@ type TitlePageParams = {
   };
 };
 
+export const dynamic = "error";
+
 export async function generateStaticParams() {
   const dates: string[] = await getDailyTitleDates();
 
@@ -21,8 +23,6 @@ export async function generateStaticParams() {
 }
 
 export default async function TitlePage({ params }: TitlePageParams) {
-  if (!params.date) return <div>No date...</div>;
-
   const queryDate = parseDateString(params.date);
   const date = new Date(queryDate);
 
