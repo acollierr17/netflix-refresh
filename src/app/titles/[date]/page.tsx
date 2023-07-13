@@ -1,10 +1,11 @@
 import ListTitles from "@/app/titles/[date]/ListTitles";
-import { getDailyTitleDates } from "@/lib/netflix";
+import { getDailyTitleDates, isDailyTitle } from "@/lib/netflix";
 import { getFriendlyFormattedDate, parseDateString } from "@/lib/date";
 import { buttonVariants } from "@/components/ui/button";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import { ArrowLeft } from "lucide-react";
+import { notFound } from "next/navigation";
 
 type TitlePageParams = {
   params: {
@@ -13,6 +14,10 @@ type TitlePageParams = {
 };
 
 export const dynamic = "error";
+
+function checkDailyTitle(date: string): Promise<boolean> {
+  return isDailyTitle(date);
+}
 
 export async function generateStaticParams() {
   const dates: string[] = await getDailyTitleDates();
@@ -24,6 +29,10 @@ export async function generateStaticParams() {
 
 export default async function TitlePage({ params }: TitlePageParams) {
   const queryDate = parseDateString(params.date);
+  const isTitle = await checkDailyTitle(params.date);
+  // TODO: implement trpc server side to handle white flash upon going to page (could be just dev)
+  if (!isTitle) notFound();
+
   const date = new Date(queryDate);
 
   return (

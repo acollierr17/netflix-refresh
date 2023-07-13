@@ -190,3 +190,7 @@ export const fetchNewTitles = async ({
 export const getDailyTitleDates = (): Promise<string[]> => {
   return redis.smembers("dates");
 };
+
+export const isDailyTitle = (date: string): Promise<boolean> => {
+  return redis.sismember("dates", date).then((isMember) => !!isMember);
+};
